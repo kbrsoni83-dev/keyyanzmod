@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>YANZ ADMIN</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#08060d;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    height:65px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0c0911;
+    border-bottom:1px solid #251b2d;
+}
+
+.logo{
+    color:#c77dff;
+    font-size:22px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.online{
+    color:#55e6a5;
+    font-size:11px;
+}
+
+.container{
+    width:94%;
+    max-width:1000px;
+    margin:25px auto;
+}
+
+.card{
+    background:#100c15;
+    border:1px solid #29202f;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.title{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.sub{
+    color:#777;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.form{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+    margin-top:20px;
+}
+
+label{
+    display:block;
+    color:#888;
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    height:46px;
+    background:#0b080f;
+    color:#fff;
+    border:1px solid #302638;
+    border-radius:11px;
+    padding:0 12px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#9d4edd;
+}
+
+.btn{
+    width:100%;
+    height:46px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(135deg,#7b2cbf,#c026d3);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:active{
+    transform:scale(.97);
+}
+
+.keys{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:18px;
+}
+
+.key{
+    background:#0c0911;
+    border:1px solid #29202f;
+    border-radius:14px;
+    padding:15px;
+}
+
+.keytop{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.keycode{
+    color:#d8b4fe;
+    font-size:14px;
+    font-weight:bold;
+    word-break:break-all;
+}
+
+.badge{
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:10px;
+    white-space:nowrap;
+}
+
+.active{
+    background:#10271e;
+    color:#55e6a5;
+}
+
+.expired{
+    background:#281116;
+    color:#ff647c;
+}
+
+.info{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:12px;
+    color:#888;
+    font-size:11px;
+}
+
+.info b{
+    color:#ddd;
+}
+
+.actions{
+    display:flex;
+    gap:7px;
+    margin-top:13px;
+    flex-wrap:wrap;
+}
+
+.small{
+    height:34px;
+    padding:0 11px;
+    border-radius:8px;
+    border:1px solid #35253d;
+    background:#15101a;
+    color:#bbb;
+    cursor:pointer;
+}
+
+.delete{
+    color:#ff647c;
+}
+
+.empty{
+    text-align:center;
+    color:#666;
+    padding:30px;
+}
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:380px;
+    background:#100c15;
+    border:1px solid #302238;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 20px 70px rgba(0,0,0,.5);
+}
+
+.login-logo{
+    text-align:center;
+    color:#c77dff;
+    font-size:30px;
+    font-weight:bold;
+    letter-spacing:5px;
+    margin-bottom:7px;
+}
+
+.login-sub{
+    text-align:center;
+    color:#777;
+    font-size:12px;
+    margin-bottom:28px;
+}
+
+.login-input{
+    margin-bottom:15px;
+}
+
+.login-input input{
+    margin-top:0;
+}
+
+.login-btn{
+    margin-top:5px;
+}
+
+.login-error{
+    min-height:18px;
+    text-align:center;
+    color:#ff647c;
+    font-size:12px;
+    margin-top:13px;
+}
+
+.logout{
+    border:1px solid #35253d;
+    background:#15101a;
+    color:#aaa;
+    border-radius:9px;
+    padding:8px 13px;
+    cursor:pointer;
+}
+
+.loading{
+    text-align:center;
+    color:#777;
+    padding:20px;
+}
+
+@media(max-width:700px){
+
+    .form{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        padding:0 14px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            YANZ
+        </div>
+
+        <div class="login-sub">
+            ADMIN CONTROL PANEL
+        </div>
+
+        <div class="login-input">
+
+            <label>USERNAME</label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Masukkan username"
+                autocomplete="off">
+
+        </div>
+
+
+        <div class="login-input">
+
+            <label>PASSWORD</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Masukkan password">
+
+        </div>
+
+
+        <button
+            class="btn login-btn"
+            onclick="login()">
+
+            LOGIN
+
+        </button>
+
+
+        <div
+            id="loginError"
+            class="login-error">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     ADMIN PAGE
+========================= -->
+
+<div id="adminPage" style="display:none">
+
+<header>
+
+    <div class="logo">
+        YANZ ADMIN
+    </div>
+
+    <div style="display:flex;align-items:center;gap:15px">
+
+        <div class="online">
+            ● FIREBASE ONLINE
+        </div>
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- CREATE KEY -->
+
+    <div class="card">
+
+        <div class="title">
+            Create License Key
+        </div>
+
+        <div class="sub">
+            Buat key untuk APK YANZ MOD
+        </div>
+
+
+        <div class="form">
+
+
+            <div>
+
+                <label>
+                    MASA AKTIF
+                </label>
+
+                <select id="duration">
+
+                    <option value="1">
+                        1 Hari
+                    </option>
+
+                    <option value="7">
+                        7 Hari
+                    </option>
+
+                    <option value="30">
+                        30 Hari
+                    </option>
+
+                    <option value="90">
+                        90 Hari
+                    </option>
+
+                    <option value="365">
+                        1 Tahun
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    MAKSIMAL DEVICE
+                </label>
+
+                <input
+                    id="devices"
+                    type="number"
+                    min="1"
+                    value="1">
+
+            </div>
+
+
+            <div
+                style="display:flex;align-items:end">
+
+                <button
+                    class="btn"
+                    onclick="createKey()">
+
+                    + BUAT KEY
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- KEY LIST -->
+
+    <div class="card">
+
+        <div class="title">
+            License Keys
+        </div>
+
+        <div class="sub">
+            Data tersimpan di Cloud Firestore
+        </div>
+
+        <div
+            id="keys"
+            class="keys">
+
+            <div class="loading">
+                Memuat data...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+<script type="module">
+
+/* =====================================
+   FIREBASE
+===================================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCFxeYheaYuAtB2KNLN-J4CoNchaajnbfo",
+
+    authDomain:
+        "yanx-mod.firebaseapp.com",
+
+    projectId:
+        "yanx-mod",
+
+    storageBucket:
+        "yanx-mod.firebasestorage.app",
+
+    messagingSenderId:
+        "987152018451",
+
+    appId:
+        "1:987152018451:web:eed97744e8602b7c4b23e6"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+/*
+    COLLECTION FIRESTORE
+
+    licenseKeys
+*/
+
+const keysCollection =
+    collection(db,"licenseKeys");
+
+
+
+/* =====================================
+   ADMIN LOGIN
+===================================== */
+
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "admin2009";
+
+
+window.login = function(){
+
+    const username =
+        document
+        .getElementById("username")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+    const error =
+        document
+        .getElementById("loginError");
+
+
+    if(
+        username === ADMIN_USERNAME &&
+        password === ADMIN_PASSWORD
+    ){
+
+        sessionStorage.setItem(
+            "yanz_admin_login",
+            "true"
+        );
+
+        document
+        .getElementById("loginPage")
+        .style.display = "none";
+
+        document
+        .getElementById("adminPage")
+        .style.display = "block";
+
+        loadKeys();
+
+    }else{
+
+        error.innerText =
+            "Username atau password salah.";
+
+    }
+
+};
+
+
+
+/* ENTER LOGIN */
+
+document
+.getElementById("password")
+.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Enter"){
+
+            window.login();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+window.logout = function(){
+
+    sessionStorage.removeItem(
+        "yanz_admin_login"
+    );
+
+    location.reload();
+
+};
+
+
+
+/* =====================================
+   RANDOM KEY
+===================================== */
+
+function randomPart(length){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let result = "";
+
+    for(
+        let i = 0;
+        i < length;
+        i++
+    ){
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
+
+    }
+
+    return result;
+
+}
+
+
+function generateKey(){
+
+    return "YZ-" +
+        randomPart(4) +
+        "-" +
+        randomPart(4) +
+        "-" +
+        randomPart(4);
+
+}
+
+
+
+/* =====================================
+   CREATE KEY
+===================================== */
+
+window.createKey = async function(){
+
+    const duration =
+        parseInt(
+            document
+            .getElementById("duration")
+            .value
+        );
+
+
+    const maxDevices =
+        parseInt(
+            document
+            .getElementById("devices")
+            .value
+        );
+
+
+    if(
+        !maxDevices ||
+        maxDevices < 1
+    ){
+
+        alert(
+            "Jumlah device minimal 1."
+        );
+
+        return;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const expire =
+        new Date(now);
+
+
+    expire.setDate(
+        expire.getDate() +
+        duration
+    );
+
+
+    const key =
+        generateKey();
+
+
+    try{
+
+        await addDoc(
+            keysCollection,
+            {
+
+                key:key,
+
+                active:true,
+
+                duration:duration,
+
+                maxDevices:maxDevices,
+
+                usedDevices:0,
+
+                createdAt:
+                    serverTimestamp(),
+
+                expireAt:
+                    expire.toISOString()
+
+            }
+        );
+
+
+        alert(
+            "Key berhasil dibuat!"
+        );
+
+
+        loadKeys();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Gagal membuat key.\n\n" +
+            error.message
+        );
+
+    }
+
+};
+
+
+
+/* =====================================
+   LOAD FIRESTORE
+===================================== */
+
+async function loadKeys(){
+
+    const container =
+        document
+        .getElementById("keys");
+
+
+    container.innerHTML =
+        '<div class="loading">Memuat data...</div>';
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                keysCollection
+            );
+
+
+        if(snapshot.empty){
+
+            container.innerHTML =
+                '<div class="empty">' +
+                'Belum ada license key.' +
+                '</div>';
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        snapshot.forEach(
+            function(item){
+
+                const data =
+                    item.data();
+
+                renderKey(
+                    item.id,
+                    data,
+                    container
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            '<div class="empty">' +
+            'Gagal mengambil data Firestore.<br><br>' +
+            error.message +
+            '</div>';
+
+    }
+
+}
+
+
+
+/* =====================================
+   FORMAT DATE
+===================================== */
+
+function formatDate(date){
+
+    if(!date){
+
+        return "-";
+
+    }
+
+
+    return new Date(date)
+        .toLocaleString(
+            "id-ID",
+            {
+
+                day:"2-digit",
+
+                month:"2-digit",
+
+                year:"numeric",
+
+                hour:"2-digit",
+
+                minute:"2-digit"
+
+            }
+        );
+
+}
+
+
+
+/* =====================================
+   RENDER KEY
+===================================== */
+
+function renderKey(
+    id,
+    data,
+    container
+){
+
+    const expired =
+        new Date() >=
+        new Date(data.expireAt);
+
+
+    const active =
+        data.active === true &&
+        !expired;
+
+
+    const status =
+        active
+        ? "ACTIVE"
+        : "EXPIRED";
+
+
+    const statusClass =
+        active
+        ? "active"
+        : "expired";
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className = "key";
+
+
+    div.innerHTML = `
+
+        <div class="keytop">
+
+            <div class="keycode">
+                ${escapeHtml(data.key || "-")}
+            </div>
+
+            <div class="badge ${statusClass}">
+                ${status}
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <span>
+                Dibuat:
+                <b>
+                    ${formatTimestamp(data.createdAt)}
+                </b>
+            </span>
+
+            <span>
+                Expired:
+                <b>
+                    ${formatDate(data.expireAt)}
+                </b>
+            </span>
+
+            <span>
+                Device:
+                <b>
+                    ${data.usedDevices || 0}/${data.maxDevices || 1}
+                </b>
+            </span>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="small"
+                data-copy="${escapeHtml(data.key || "")}">
+
+                Copy
+
+            </button>
+
+
+            <button
+                class="small"
+                data-toggle="${id}"
+                data-active="${data.active === true}">
+
+                ${
+                    data.active === true
+                    ? "Nonaktifkan"
+                    : "Aktifkan"
+                }
+
+            </button>
+
+
+            <button
+                class="small delete"
+                data-delete="${id}">
+
+                Hapus
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+
+    /* COPY */
+
+    div
+    .querySelector("[data-copy]")
+    .addEventListener(
+        "click",
+        function(){
+
+            const key =
+                this.getAttribute(
+                    "data-copy"
+                );
+
+
+            navigator.clipboard
+            .writeText(key)
+            .then(function(){
+
+                alert(
+                    "Key berhasil disalin."
+                );
+
+            });
+
+        }
+    );
+
+
+    /* TOGGLE */
+
+    div
+    .querySelector("[data-toggle]")
+    .addEventListener(
+        "click",
+        async function(){
+
+            const keyId =
+                this.getAttribute(
+                    "data-toggle"
+                );
+
+            const current =
+                this.getAttribute(
+                    "data-active"
+                ) === "true";
+
+
+            try{
+
+                await updateDoc(
+                    doc(
+                        db,
+                        "licenseKeys",
+                        keyId
+                    ),
+                    {
+                        active:!current
+                    }
+                );
+
+
+                loadKeys();
+
+
+            }catch(error){
+
+                alert(
+                    "Gagal mengubah status:\n" +
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+    /* DELETE */
+
+    div
+    .querySelector("[data-delete]")
+    .addEventListener(
+        "click",
+        async function(){
+
+            const keyId =
+                this.getAttribute(
+                    "data-delete"
+                );
+
+
+            if(
+                !confirm(
+                    "Hapus key ini?"
+                )
+            ){
+
+                return;
+
+            }
+
+
+            try{
+
+                await deleteDoc(
+                    doc(
+                        db,
+                        "licenseKeys",
+                        keyId
+                    )
+                );
+
+
+                loadKeys();
+
+
+            }catch(error){
+
+                alert(
+                    "Gagal menghapus key:\n" +
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================
+   TIMESTAMP FIREBASE
+===================================== */
+
+function formatTimestamp(timestamp){
+
+    if(!timestamp){
+
+        return "-";
+
+    }
+
+
+    if(
+        typeof timestamp.toDate ===
+        "function"
+    ){
+
+        return formatDate(
+            timestamp.toDate()
+        );
+
+    }
+
+
+    return "-";
+
+}
+
+
+
+/* =====================================
+   BASIC HTML ESCAPE
+===================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+
+/* =====================================
+   CHECK SESSION
+===================================== */
+
+if(
+    sessionStorage.getItem(
+        "yanz_admin_login"
+    ) === "true"
+){
+
+    document
+    .getElementById("loginPage")
+    .style.display = "none";
+
+    document
+    .getElementById("adminPage")
+    .style.display = "block";
+
+    loadKeys();
+
+}
+
+</script>
+
+</body>
+</html>
